@@ -62,5 +62,4 @@ Firebase credentials should be kept private and should not be committed to a pub
 
 ## Final Project
 
-Recipe Tracker demonstrates a complete full-stack application with authentication, protected routes, database integration, CRUD functionality, form validation, error messages, delete confirmation, and a 
-responsive user interface.
+The application, Recipe Tracker demonstrates a complete full-stack application with authentication, protected routes, database integration, CRUD functionality, form validation, error messages, delete confirmation, and a responsive user interface.
