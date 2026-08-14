@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../lib/firebase";
@@ -30,15 +31,17 @@ function Register() {
     setError("");
 
     if (!formData.email || !formData.password || !formData.confirmPassword) {
-      setError("Incorrect, please fill all fields.");
+      setError("Please fill in all fields.");
       return;
     }
+
     if (formData.password.length < 6) {
-      setError("Password must be atleast 6 characters");
+      setError("Password must be at least 6 characters.");
       return;
     }
+
     if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
+      setError("Passwords do not match.");
       return;
     }
 
@@ -48,7 +51,7 @@ function Register() {
       await createUserWithEmailAndPassword(
         auth,
         formData.email,
-        formData.password,
+        formData.password
       );
 
       navigate("/");
@@ -70,55 +73,78 @@ function Register() {
   }
 
   return (
-    <div>
-      <h1>Create Account</h1>
+    <div className="auth-page">
+      <div className="auth-card">
+        <div className="auth-logo">🍴</div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email</label>
+        <h1>Create Account</h1>
 
-          <input
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-            <div>
-          <label htmlFor="password"> Password</label>
+        <p className="auth-subtitle">
+          Create your account and start organizing your recipes.
+        </p>
 
-          <input
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        {error && <div className="error-message">{error}</div>}
 
-        <div>
-          <label htmlFor="confirmPassword">Confirm Password</label>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
 
-          <input
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit" disabled={loading}>
-          {loading ? "Creating account..." : "Register"}
-        </button>
-      </form>
-      <p>
-        Already have an account?{""}
-        <Link to="/login">Login</Link>
-      </p>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+
+            <input
+              id="password"
+              name="password"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="At least 6 characters"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="confirmPassword">Confirm Password</label>
+
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              placeholder="Re-enter your password"
+              required
+            />
+          </div>
+
+          <button
+            className="primary-button auth-button"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Creating account..." : "Create Account"}
+          </button>
+        </form>
+
+        <p className="auth-footer">
+          Already have an account?{" "}
+          <Link to="/login">Log in</Link>
+        </p>
+      </div>
     </div>
   );
 }
 
 export default Register;
+

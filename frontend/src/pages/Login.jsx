@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../lib/firebase";
@@ -35,7 +36,11 @@ function Login() {
     try {
       setLoading(true);
 
-      await signInWithEmailAndPassword(auth, formData.email, formData.password);
+      await signInWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
 
       navigate("/");
     } catch (error) {
@@ -58,46 +63,64 @@ function Login() {
   }
 
   return (
-    <div>
-      <h1>Login</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    <div className="auth-page">
+      <div className="auth-card">
+        <div className="auth-logo">🍴</div>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email</label>
+        <h1>Welcome Back</h1>
 
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        <p className="auth-subtitle">
+          Log in to access your Recipe Tracker.
+        </p>
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
-        </button>
-      </form>
+        {error && <div className="error-message">{error}</div>}
 
-      <p>
-        Don't have an account?{""}
-        <Link to="/register">Create an account</Link>
-      </p>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+
+            <input
+              id="password"
+              name="password"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+
+          <button
+            className="primary-button auth-button"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "Log In"}
+          </button>
+        </form>
+
+        <p className="auth-footer">
+          Don't have an account?{" "}
+          <Link to="/register">Create an account</Link>
+        </p>
+      </div>
     </div>
   );
 }
 
 export default Login;
+
