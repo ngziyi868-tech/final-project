@@ -1,8 +1,10 @@
 import dotenv from "dotenv";
-import app from "./app.js";
-
 
 dotenv.config();
+
+import app from "./app.js";
+import "./lib/firebase/index.js";
+
 
 const PORT = process.env.PORT || 5000;
 

@@ -1,11 +1,12 @@
-import express from "express"
+import express from "express";
+import cors from "cors";
+import recipeRoutes from "./routes/recipeRoutes.js";
 
-const app = express()
+const app = express();
 
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
-app.get("/", (req,res)=>{
-    res.send("Recipe Tracker Api")
-})
+app.use("/api/recipes", recipeRoutes);
 
 export default app;
